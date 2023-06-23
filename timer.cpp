@@ -1,4 +1,4 @@
-#include timer.h
+#include "timer.h"
 
 Timer::Timer(int dt):dt{dt}{
   this->start();
@@ -9,5 +9,5 @@ void Timer::start(){
 }
 
 bool Timer::is_time(){
-  return (millis() - t0) >= dt;
+  return (millis() - this->t0) >= this->dt;
 }
