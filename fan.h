@@ -1,14 +1,4 @@
-enum class Device_state{
-  REST, WORK
-};
-
-enum class Bathroom{
-  DRY, WET
-};
-
-enum class Toilet{
-  FRESH, STINK
-};
+#pragma once
 
 class Fan{
   public:
@@ -18,5 +8,4 @@ class Fan{
 
   private:
     int pin;
-    Device_state st = Device_state::REST;
 };

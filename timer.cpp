@@ -1,13 +1,13 @@
 #include "timer.h"
 
 Timer::Timer(int dt):dt{dt}{
-  this->start();
+  start();
 }
 
 void Timer::start(){
-  this->t0 = millis();
+  t0 = millis();
 }
 
 bool Timer::is_time(){
-  return (millis() - this->t0) >= this->dt;
+  return (millis() - t0) >= dt;
 }

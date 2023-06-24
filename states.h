@@ -1,3 +1,4 @@
+#pragma once
 
 enum class Bathroom{
   DRY, WET
@@ -6,9 +7,4 @@ enum class Bathroom{
 enum class Toilet{
   FRESH, STINK
 };
-
-    
-
-
-    
 
