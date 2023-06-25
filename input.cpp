@@ -6,6 +6,7 @@ void Input::read(){
       if digitalRead(input){
         timer_start.start();
         state = Input_state::START;
+        delay(100) //против дребезга
       }
       break;
   }
