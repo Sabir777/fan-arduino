@@ -6,10 +6,14 @@ const int in_bathroom = 11; //вход: освещение ванной
 const int out_bathroom = 12; //выход: вентилятор ванной
 
 
-enum class Bathroom{
+enum class Bathroom_state{
   DRY, WET //DRY - сухо, WET - сыро
 };
 
-enum class Toilet{
+enum class Toilet_state{
   FRESH, STINK //FRESH - не воняет, STINK - воняет
+};
+
+enum class Device_state{
+  REST, WORK //REST - состояние покоя, WORK - вентилятор включен
 };
