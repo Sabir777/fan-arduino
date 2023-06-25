@@ -1,11 +1,12 @@
 #pragma once
 
 #include "global.h"
+#include "input.h"
 
 class Room{ //абстрактный класс: комната
   public:
-    Room(int input, int output, Room* p_room)
-    : input{input}, output{output}, p_other_room{p_room}
+    Room(int m_input, int output, Room* p_room)
+    : input{Input(m_input)}, output{output}, p_other_room{p_room}
     {}
     virtual void get_state() = 0; //узнаю состояние входа и вычисляю состояние комнаты
     bool is_normal(); //узнаю состояние комнаты: если true - значит состояние нормальное: не воняет(туалет) или не сыро(ванная) 
@@ -13,13 +14,13 @@ class Room{ //абстрактный класс: комната
     void off_fan(); //выключение вентилятора
   
   private:
-    int input;
+    Input input;
     int output;
     Room* p_other_room; // другая комната: для ванной это будет туалет, а для туалета наоборот
     Room_state room_state = Room_state:NORMAL; // состояние комнаты
     Device_state fan_state = Device_state::REST; //состояние вентилятора
-    Timer timer_start; //таймер запуска ненормального режима
-    Timer timer_stop; //таймер сброса ненормального режима
+//    Timer timer_start; //таймер запуска ненормального режима
+//    Timer timer_stop; //таймер сброса ненормального режима
 };
 
 

@@ -2,11 +2,11 @@
 
 class Timer{
   public:
-    Timer(int dt);
+    Timer(uint32_t dt);
     void start();
     bool is_time();
 
   private:
-    int t0;
-    int dt;
+    uint32_t t0;
+    uint32_t dt;
 }

@@ -1,6 +1,6 @@
 #include "timer.h"
 
-Timer::Timer(int dt):dt{dt}{
+Timer::Timer(uint32_t dt):dt{dt}{
   start();
 }
 
