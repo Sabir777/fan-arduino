@@ -4,7 +4,10 @@ void Input::read(){
   switch(state){
     case Input_state::REST:
       if digitalRead(input){
-        }
+        timer_start.start();
+        state = Input_state::START;
+      }
+      break;
   }
 }
 
