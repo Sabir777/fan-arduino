@@ -1,4 +1,24 @@
-#include "fan.h"
+#include "room.h"
+
+bool Room::is_normal(){
+  return room_state == Room_state::NORMAL;
+}
+
+void Room::on_fan(){
+  digitalWrite(output, HIGH);
+  fan_state = Device_state::WORK;
+}
+
+void Toilet::on_fan_out(){
+  digitalWrite(output, HIGH);
+  fan_state = Device_state::WORK_OUT;
+}
+
+void Room::off_fan(){
+  digitalWrite(output, LOW);
+  fan_state = Device_state::REST;
+}
+
 
 /*
 Fan::Fan(int pin):pin{pin}{}
@@ -11,11 +31,3 @@ void Fan::off(){
   digitalWrite(pin, LOW);
 }
 */
-
-bool Bathroom::is_normal(){
-  return state == Bathroom_state::DRY;
-}
-
-bool Toilet::is_normal(){
-  return state == Toilet_state::FRESH;
-}
