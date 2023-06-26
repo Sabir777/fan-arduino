@@ -22,6 +22,6 @@ pinMode(out_bathroom, OUTPUT);
 }
 
 void loop() {
-
+delay(1); //1 мс - сон при каждой итерации
 }
 
