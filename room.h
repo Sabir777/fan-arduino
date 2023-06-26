@@ -5,8 +5,10 @@
 
 class Room{ //абстрактный класс: комната
   public:
-    Room(int m_input, int output, Room* p_room)
-    : input{Input(m_input)}, output{output}, p_other_room{p_room}
+    Room(int m_input, uint32_t start, uint32_t stop, int output, Room* p_room)
+    : input{Input(m_input, start, stop)},
+    output{output},
+    p_other_room{p_room}
     {}
     virtual void get_state() = 0; //узнаю состояние входа и вычисляю состояние комнаты
     bool is_normal(); //узнаю состояние комнаты: если true - значит состояние нормальное: не воняет(туалет) или не сыро(ванная) 
