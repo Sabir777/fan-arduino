@@ -1,5 +1,9 @@
 #include "input.h"
 
+bool Input::is_normal_state(){
+  return (state == Input_state::REST) || (state == Input_state::START);
+}
+
 void Input::read(){
   switch(state){
     case Input_state::REST:
@@ -12,7 +16,4 @@ void Input::read(){
   }
 }
 
-bool Input::is_normal_state(){
-  return (state == Input_state::REST) || (state == Input_state::START);
-}
 

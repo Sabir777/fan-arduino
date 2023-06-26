@@ -14,8 +14,13 @@ class Input{
     timer_start{Timer(start)},
     timer_stop{Timer(stop)}
     {}
-    void read();
     bool is_normal_state();
+    void read();
+    void read_rest();
+    void read_start();
+    void read_on();
+    void read_stop();
+
   
   private:
     int input;
