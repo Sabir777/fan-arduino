@@ -1,6 +1,6 @@
 #pragma once
 
-#include "timer.h"
+#include "switcher.h"
 
 enum class Input_state{
   REST, START, ON, STOP
