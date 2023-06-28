@@ -13,7 +13,6 @@ void Input::read(){
 }
 
 void Input::read_rest(){
-  static Switcher switcher(50); 
   static bool flag_on = false;
 
   if (state != Input_state::REST){
@@ -28,9 +27,45 @@ void Input::read_rest(){
     flag_on = false;
   }
 
-  if switcher.is_time(){
+  if (switcher.is_time()){
     state = Input_state::START;
     flag_on = false;
   }
 }
 
+void Input::read_start(){
+  static bool flag_on = false;
+  static bool flag_off = false;
+
+  if (state != Input_state::START){
+    return;
+  }
+
+  if (!flag_on){
+    timer_start.start();
+  }
+
+  if (!digitalRead(input) && !flag_off){
+    switcher.start();
+    flag_off = true;
+  }
+  else{
+    flag_off = false;
+  }
+
+  if (switcher.is_time()){
+    state = Input_state::REST;
+    flag_on = false;
+    flag_off = false;
+  }
+
+  if (!flag_off && timer_start.is_time()){
+    state = Input_state::ON;
+    flag_on = false;
+    flag_off = false;
+  }
+}
+
+void Input::read_on(){
+
+}
