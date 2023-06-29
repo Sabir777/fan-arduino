@@ -19,15 +19,15 @@ void Input::read_rest(){
     return;
   }
 
-  if (digitalRead(input) && !flag_on){
+  if (!digitalRead(input)){
     switcher.start();
-    flag_on = true;
   }
-  else{
-    flag_on = false;
+  else if (!flag_on){
+    flag_on = true;
+    switcher.start();
   }
 
-  if (switcher.is_time()){
+  if (flag_on && switcher.is_time()){
     state = Input_state::START;
     flag_on = false;
   }
@@ -35,60 +35,62 @@ void Input::read_rest(){
 
 void Input::read_start(){
   static bool flag_on = false;
-  static bool flag_off = false;
+  static bool flag_rest = false;
 
   if (state != Input_state::START){
     return;
   }
 
   if (!flag_on){
+    flag_on = true;
     timer_start.start();
   }
 
-  if (!digitalRead(input) && !flag_off){
+  if (digitalRead(input)){
     switcher.start();
-    flag_off = true;
   }
-  else{
-    flag_off = false;
+  else if (!flag_rest){
+    flag_rest = true;
+    switcher.start();
   }
-
-  if (switcher.is_time()){
+  
+  if (flag_rest && switcher.is_time()){
     state = Input_state::REST;
     flag_on = false;
-    flag_off = false;
+    flag_rest = false;
   }
 
-  if (!flag_off && timer_start.is_time()){
+  if (!flag_rest && timer_start.is_time()){
     state = Input_state::ON;
     flag_on = false;
-    flag_off = false;
+    flag_rest = false;
   }
 }
 
 void Input::read_on(){
-  static bool flag_off = false;
+  static bool flag_stop = false;
 
   if (state != Input_state::ON){
     return;
   }
 
-  if (!digitalRead(input) && !flag_off){
+  if (digitalRead(input)){
     switcher.start();
-    flag_off = true;
   }
-  else{
-    flag_off = false;
+  else if (!flag_stop){
+    flag_stop = false;
+    switcher.start();
   }
 
-  if (switcher.is_time()){
+  if (flag_stop && switcher.is_time()){
     state = Input_state::STOP;
-    flag_off = false;
+    flag_stop = false;
   }
 }
 
 void Input::read_stop(){
   static bool flag_stop = false;
+  static bool flag_on = false;
 
   if (state != Input_state::STOP){
     return;
@@ -99,9 +101,24 @@ void Input::read_stop(){
     flag_stop = true;
   }
 
-  if (timer_stop.is_time()){
+  if (!digitalRead(input)){
+    switcher.start();
+  }
+  else if (!flag_on){
+    flag_on = true;
+    switcher.start();
+  }
+
+  if (flag_on && switcher.is_time()){
+    state = Input_state::ON;
+    flag_stop = false;
+    flag_on = false;
+  }
+
+  if (!flag_on && timer_stop.is_time()){
     state = Input_state::REST;
-    flag_off = false;
+    flag_stop = false;
+    flag_on = false;
   }
 }
 
