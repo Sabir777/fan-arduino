@@ -13,23 +13,15 @@ void Input::read(){
 }
 
 void Input::read_rest(){
-  static bool flag_on = false;
-
   if (state != Input_state::REST){
     return;
   }
 
   if (!digitalRead(input)){
     switcher.start();
-  }
-  else if (!flag_on){
-    flag_on = true;
-    switcher.start();
-  }
 
-  if (flag_on && switcher.is_time()){
+  if (switcher.is_time()){
     state = Input_state::START;
-    flag_on = false;
   }
 }
 
