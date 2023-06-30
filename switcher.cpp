@@ -14,7 +14,14 @@ bool Switcher::is_time(){
 
 
 void Timer::start(){
-  counter = 0;
+  if (!flag_run){
+    flag_run = true;
+    counter = 0;
+  }
+}
+
+void Timer::stop(){
+  flag_run = false;
 }
 
 bool Timer::is_time(){
