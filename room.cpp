@@ -1,7 +1,7 @@
 #include "room.h"
 
 bool Room::is_normal(){
-  return room_state == Room_state::NORMAL;
+  return input.is_normal_stat();
 }
 
 void Room::on_fan(){
@@ -19,15 +19,3 @@ void Room::off_fan(){
   fan_state = Device_state::REST;
 }
 
-
-/*
-Fan::Fan(int pin):pin{pin}{}
-
-void Fan::on(){
-  digitalWrite(pin, HIGH);
-}
-
-void Fan::off(){
-  digitalWrite(pin, LOW);
-}
-*/

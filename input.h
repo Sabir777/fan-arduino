@@ -20,7 +20,6 @@ class Input{
     void read_start();
     void read_on();
     void read_stop();
-
   
   private:
     int input;
