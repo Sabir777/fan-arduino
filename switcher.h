@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+
 /*
  *Обработка дребезга контактов
  *
