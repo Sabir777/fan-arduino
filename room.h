@@ -6,6 +6,8 @@ enum class Device_state{
   REST, WORK, WORK_OUT //REST - состояние покоя, WORK - вентилятор включен, WORK_OUT - вентилятор включен из другой комнаты (например включение вентилятора в туалете от вентилятора в ванной
 };
 
+class Room;
+
 class Room{ 
   public:
     Room(int m_input, uint32_t start, uint32_t stop, int output, Room* p_room)
