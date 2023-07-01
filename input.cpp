@@ -19,7 +19,8 @@ void Input::read_rest(){
 
   if (!digitalRead(input)){
     switcher.start();
-
+  }
+  
   if (switcher.is_time()){
     state = Input_state::START;
   }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Arduino.h>
 #include "switcher.h"
 
 enum class Input_state{
@@ -24,7 +25,7 @@ class Input{
   private:
     int input;
     Input_state state = Input_state::REST;
-    Switcher swither(50);
+    Switcher switcher{50};
     Timer timer_start; //таймер запуска ненормального режима
     Timer timer_stop; //таймер сброса ненормального режима
 };

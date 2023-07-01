@@ -28,6 +28,6 @@ bool Timer::is_time(){
   if (counter >= dt){
     return true;
   }
-  counter += 1;
+  counter++;
   return false;
 }
