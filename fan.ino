@@ -12,7 +12,10 @@
   после чего вентилятор туалета отключается - если не активна программа вентиляции ванной  
 */
 
+#pragma once
+
 #include "global.h"
+#include "direct_room.h"
 
 void setup() {
 pinMode(in_toilet, INPUT);
@@ -22,6 +25,8 @@ pinMode(out_bathroom, OUTPUT);
 }
 
 void loop() {
-delay(1); //1 мс - сон при каждой итерации
+  static Direct_rooms dr; 
+  dr.run();
+  delay(1); //1 мс - сон при каждой итерации
 }
 
