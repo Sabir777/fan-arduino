@@ -11,7 +11,7 @@
 class Switcher{
   public:
     Switcher() = delete;
-    Switcher(int dt): dt{dt}{}
+    Switcher(int dt): dt{dt}, counter{0} {}
     void start();
     bool is_time();
 
@@ -24,7 +24,7 @@ class Switcher{
 class Timer{
   public:
     Timer() = delete;
-    Timer(uint32_t dt): dt{dt}{}
+    Timer(uint32_t dt): dt{dt}, counter{0} {}
     void start();
     void stop();
     bool is_time();
