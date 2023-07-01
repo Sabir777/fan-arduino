@@ -24,7 +24,7 @@ class Input{
   private:
     int input;
     Input_state state = Input_state::REST;
-    Switchet swither(50);
+    Switcher swither(50);
     Timer timer_start; //таймер запуска ненормального режима
     Timer timer_stop; //таймер сброса ненормального режима
 };
