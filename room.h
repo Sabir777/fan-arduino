@@ -33,7 +33,7 @@ class Bathroom: public Room{
     : Room{m_input, start, stop, output, p_room}
     {}
     void direct_fan() override; //Управляю из ванной своим вентилятором и вентилятором туалета
-}
+};
 
 class Toilet: public Room{
   public:
@@ -42,4 +42,4 @@ class Toilet: public Room{
     : Room{m_input, start, stop, output, p_room}
     {}
     void direct_fan() override; //Управляю вентилятором туалета, отключаю его если в ванной нормальное состояние
-}
+};
