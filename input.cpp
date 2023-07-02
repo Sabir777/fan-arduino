@@ -17,7 +17,7 @@ void Input::read_rest(){
     return;
   }
 
-  if (!digitalRead(input)){
+  if (digitalRead(input)){ //было !digitalRead
     switcher.start();
   }
   
@@ -33,7 +33,7 @@ void Input::read_start(){
 
   timer_start.start();
 
-  if (digitalRead(input)){
+  if (!digitalRead(input)){ //было digitalRead
     switcher.start();
   }
   
@@ -53,7 +53,7 @@ void Input::read_on(){
     return;
   }
 
-  if (digitalRead(input)){
+  if (!digitalRead(input)){ //было digitalRead
     switcher.start();
   }
 
@@ -69,7 +69,7 @@ void Input::read_stop(){
 
   timer_stop.start();
 
-  if (!digitalRead(input)){
+  if (digitalRead(input)){ //было !digitalRead
     switcher.start();
   }
 

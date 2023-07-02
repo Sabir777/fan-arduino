@@ -18,9 +18,9 @@
 #include "direct_room.h"
 
 void setup() {
-pinMode(in_toilet, INPUT);
+pinMode(in_toilet, INPUT_PULLUP); //вход подтянутый к плюсу
 pinMode(out_toilet, OUTPUT);
-pinMode(in_bathroom, INPUT);
+pinMode(in_bathroom, INPUT_PULLUP); //вход подтянутый к плюсу
 pinMode(out_bathroom, OUTPUT);
 }
 
