@@ -8,7 +8,7 @@ bool Switcher::is_time(){
   if (counter >= dt){
     return true;
   }
-  ++counter;
+  counter += 2;
   return false;
 }
 
@@ -28,6 +28,6 @@ bool Timer::is_time(){
   if (counter >= dt){
     return true;
   }
-  ++counter;
+  counter += 2;
   return false;
 }

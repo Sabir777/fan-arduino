@@ -27,6 +27,6 @@ pinMode(out_bathroom, OUTPUT);
 void loop() {
   static Direct_rooms dr; 
   dr.run();
-  delay(1); //1 мс - сон при каждой итерации
+  delay(2); //2 мс - сон при каждой итерации
 }
 
