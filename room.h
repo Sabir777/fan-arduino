@@ -10,9 +10,9 @@ enum class Device_state{
 
 class Room{ 
   public:
-    Room(int m_input, uint32_t start, uint32_t stop, int output, Room* p_room)
-    : input{Input{m_input, start, stop}},
-    output{output},
+    Room(int pin_input, int t_switch, uint32_t t_start, uint32_t t_stop, uint32_t t_off, int pin_output, Room* p_room)
+    : input{Input{pin_input, t_switch, t_start, t_stop, t_off}},
+    output{pin_output},
     p_other_room{p_room}
     {}
     virtual void direct_fan() = 0; //Управление вентиляторами
@@ -31,8 +31,8 @@ class Room{
 class Bathroom: public Room{
   public:
     Bathroom() = delete;
-    Bathroom(int m_input, uint32_t start, uint32_t stop, int output, Room* p_room)
-    : Room{m_input, start, stop, output, p_room}
+    Bathroom(int pin_input, int t_switch, uint32_t t_start, uint32_t t_stop, uint32_t t_off, int pin_output, Room* p_room)
+    : Room{pin_input, t_switch, t_start, t_stop, t_off, pin_output, p_room}
     {}
     void direct_fan() override; //Управляю из ванной своим вентилятором и вентилятором туалета
 };
@@ -40,8 +40,8 @@ class Bathroom: public Room{
 class Toilet: public Room{
   public:
     Toilet() = delete;
-    Toilet(int m_input, uint32_t start, uint32_t stop, int output, Room* p_room)
-    : Room{m_input, start, stop, output, p_room}
+    Toilet(int pin_input, int t_switch, uint32_t t_start, uint32_t t_stop, uint32_t t_off, int pin_output, Room* p_room)
+    : Room{pin_input, t_switch, t_start, t_stop, t_off, pin_output, p_room}
     {}
     void direct_fan() override; //Управляю вентилятором туалета, отключаю его если в ванной нормальное состояние
 };

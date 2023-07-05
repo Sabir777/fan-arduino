@@ -17,7 +17,7 @@ void Input::read_rest(){
     return;
   }
 
-  if (digitalRead(input)){ //было !digitalRead
+  if (digitalRead(input)){ //значение для режима PULLUP, для INPUT было !digitalRead
     switcher.start();
   }
   
@@ -33,7 +33,7 @@ void Input::read_start(){
 
   timer_start.start();
 
-  if (!digitalRead(input)){ //было digitalRead
+  if (!digitalRead(input)){ //значение для режима PULLUP, для INPUT было digitalRead
     switcher.start();
   }
   
@@ -53,12 +53,20 @@ void Input::read_on(){
     return;
   }
 
-  if (!digitalRead(input)){ //было digitalRead
+  timer_off.start();
+
+  if (!digitalRead(input)){ //значение для режима PULLUP, для INPUT было digitalRead
     switcher.start();
   }
 
+  if (!timer_off.is_time() && switcher.is_time()){ //если быстро отключить выключатель после включения то вентилятор отключится - принудительное отключение
+    state = Input_state::REST;
+    timer_off.stop();
+  } 
+
   if (switcher.is_time()){
     state = Input_state::STOP;
+    timer_off.stop();
   }
 }
 
@@ -69,7 +77,7 @@ void Input::read_stop(){
 
   timer_stop.start();
 
-  if (digitalRead(input)){ //было !digitalRead
+  if (digitalRead(input)){ //значение для режима PULLUP, для INPUT было !digitalRead
     switcher.start();
   }
 

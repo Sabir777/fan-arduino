@@ -11,7 +11,7 @@ class Direct_rooms{
     }
     
   private:
-    Toilet toilet{in_toilet, time_start_toilet, time_stop_toilet, out_toilet, &bathroom};
-    Bathroom bathroom{in_bathroom, time_start_bathroom, time_stop_bathroom, out_bathroom, &toilet};
+    Toilet toilet{in_toilet, time_switch, time_start_toilet, time_stop_toilet, time_off, out_toilet, &bathroom};
+    Bathroom bathroom{in_bathroom, time_switch, time_start_bathroom, time_stop_bathroom, time_off, out_bathroom, &toilet};
 };
 
