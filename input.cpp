@@ -23,6 +23,7 @@ void Input::read_rest(){
   
   if (switcher.is_time()){
     state = Input_state::START;
+    switcher.start();
   }
 }
 
@@ -40,11 +41,13 @@ void Input::read_start(){
   if (switcher.is_time()){
     state = Input_state::REST;
     timer_start.stop();
+    switcher.start();
   }
 
   if (timer_start.is_time()){
     state = Input_state::ON;
     timer_start.stop();
+    switcher.start();
   }
 }
 
@@ -62,11 +65,13 @@ void Input::read_on(){
   if (!timer_off.is_time() && switcher.is_time()){ //если быстро отключить выключатель после включения то вентилятор отключится - принудительное отключение
     state = Input_state::REST;
     timer_off.stop();
+    switcher.start();
   } 
 
   if (switcher.is_time()){
     state = Input_state::STOP;
     timer_off.stop();
+    switcher.start();
   }
 }
 
@@ -84,11 +89,13 @@ void Input::read_stop(){
   if (switcher.is_time()){
     state = Input_state::ON;
     timer_stop.stop();
+    switcher.start();
   }
 
   if (timer_stop.is_time()){
     state = Input_state::REST;
     timer_stop.stop();
+    switcher.start();
   }
 }
 
