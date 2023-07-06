@@ -26,17 +26,6 @@ pinMode(out_bathroom, OUTPUT);
 
 void loop() {
   static Direct_rooms dr; 
-  static uint32_t t_prev{millis()};
-
-  uint32_t t_next = millis();
-
-  if (t_next < t_prev){ //на случай обнуления millis раз в 50 суток
-    t_prev = millis();
-  }
-
-  if (t_next - t_prev >= 1){ //объект вызывается раз в одну миллисекунду
-    t_prev = millis();
-    dr.run();
-  }
+  dr.run();
 }
 
