@@ -18,16 +18,9 @@ void Input::read_rest(){
     return;
   }
 
-  if (state != prev_state){
-    switcher.start();
-    prev_state = state;
-  }
-  
-  if (digitalRead(input)){ //значение для режима PULLUP, для INPUT было !digitalRead
-    switcher.start();
-  }
-  
-  if (switcher.is_time()){
+  prev_state = state;
+
+  if (switcher(!digitalRead(input))){ //если выключатель ВКЛЮЧЕН (режим входа: PULLUP), переход в состояние START
     state = Input_state::START;
   }
 }
@@ -37,21 +30,16 @@ void Input::read_start(){
     return;
   }
 
-  if (state != prev_state){
+  if (state != prev_state){ //запуск таймера только в начале состояния
     timer_start.start();
-    switcher.start();
     prev_state = state;
   }
 
-  if (!digitalRead(input)){ //значение для режима PULLUP, для INPUT было digitalRead
-    switcher.start();
-  }
-  
-  if (switcher.is_time()){
+  if (switcher(digitalRead(input))){ //если выключатель ОТКЛЮЧЕН (режим входа: PULLUP), переход в состояние REST
     state = Input_state::REST;
   }
 
-  if (timer_start.is_time()){
+  if (timer_start.is_time()){ //если за отведенное время выключатель не отключился, переход в состояние ON
     state = Input_state::ON;
   }
 }
@@ -63,20 +51,17 @@ void Input::read_on(){
 
   if (state != prev_state){
     timer_off.start();
-    switcher.start();
     prev_state = state;
   }
 
-  if (!digitalRead(input)){ //значение для режима PULLUP, для INPUT было digitalRead
-    switcher.start();
-  }
+  bool state_off = switcher(digitalRead(input)); //true - выключатель отключен
 
-  if (!timer_off.is_time() && switcher.is_time()){ //если быстро отключить выключатель после включения то вентилятор отключится - принудительное отключение
+  if (state_off && !timer_off.is_time()){ //если быстро отключить выключатель после включения то вентилятор отключится - принудительное отключение
     state = Input_state::REST;
     return;
   } 
   
-  if (switcher.is_time()){
+  if (state_off){
     state = Input_state::STOP;
   }
 }
@@ -88,21 +73,19 @@ void Input::read_stop(){
 
   if (state != prev_state){
     timer_stop.start();
-    timer_off_for_on.start();
-    switcher.start();
+    timer_off_forced.start();
     prev_state = state;
   }
 
-  if (digitalRead(input)){ //значение для режима PULLUP, для INPUT было !digitalRead
-    switcher.start();
-  }
 
-  if (!timer_off_for_on.is_time() && switcher.is_time()){ //если быстро включить выключатель после отключения то вентилятор отключится - принудительное отключение
+  bool state_on = switcher(!digitalRead(input)); //true - выключатель включен
+
+  if (state_on && !timer_off_forced.is_time()){ //если быстро включить выключатель после отключения то вентилятор отключится - принудительное отключение
     state = Input_state::OFF_FORCED; //переход в состояние принудительной остановки
     return;
   } 
 
-  if (switcher.is_time()){
+  if (state_on){
     state = Input_state::ON;
   }
 
@@ -117,16 +100,11 @@ void Input::read_off_forced(){
     return;
   }
 
-  if (state != prev_state){
-    switcher.start();
-    prev_state = state;
-  }
+  prev_state = state;
 
-  if (!digitalRead(input)){ //сброс таймера переключателя при включенном освещении
-    switcher.start();
-  }
+  bool state_off = switcher(digitalRead(input)); //true - выключатель отключен
 
-  if (switcher.is_time()){
+  if (state_off){
     state = Input_state::REST;
   }
 }
