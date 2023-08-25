@@ -16,7 +16,7 @@ class Timer{
     }
 
     bool is_time(){
-      return millis() - t_start >= dt;
+      return static_cast<uint32_t>(millis() - t_start) >= dt;
     }
 
   private:
