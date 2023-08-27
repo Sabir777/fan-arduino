@@ -27,5 +27,9 @@ pinMode(out_bathroom, OUTPUT);
 void loop() {
   static Direct_rooms dr; 
   dr.run();
+  if (!millis() % 1000){
+    digitalWrite(13, digitalRead(13) == 1 ? 0 : 1);
+    delay(5);
+  }
 }
 
