@@ -5,8 +5,11 @@
 
 
 class Timer{
+  private:
+    uint32_t dt; //уставка таймера
+    uint32_t t_start; //время запуска таймера
+
   public:
-    Timer() = delete;
     Timer(uint32_t dt): dt{dt} {
       start();
     }
@@ -18,8 +21,4 @@ class Timer{
     bool is_time(){
       return millis() - t_start >= dt;
     }
-
-  private:
-    uint32_t dt; //уставка таймера
-    uint32_t t_start; //время запуска таймера
 };

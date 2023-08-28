@@ -1,7 +1,7 @@
 #include "room.h"
 
 bool Room::is_normal(){
-  return input.is_normal_state();
+  return input.is_normal();
 }
 
 void Room::on_fan(){
