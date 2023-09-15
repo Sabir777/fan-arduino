@@ -33,44 +33,29 @@ void State::set_context(Context* context){
 }
 
 //конструктор с параметрами State: применяется один раз при инициализации объекта Context
-State::State(int input,
-             int t_switch,
-             uint32_t t_start,
-             uint32_t t_stop,
-             uint32_t t_off_force,
-             Context* context)
- : input{input},
-   t_switch{t_switch},
-   t_start{t_start},
-   t_stop{t_stop},
-   t_off_force{t_off_force},
-   context_{context} 
+State::State(Settings* p_set, Context* context)
+ : p_set{p_set}, context_{context}, input{p_set->get_input()} 
 {}
 
 
 //----------------------------Rest------------------------------//
 
 //конструктор с параметрами Rest: применяется один раз при инициализации объекта Context
-Rest::Rest(int input,
-           int t_switch,
-           uint32_t t_start,
-           uint32_t t_stop,
-           uint32_t t_off_force,
-           Context* context)
- : State{input, t_switch, t_start, t_stop, t_off_force, context},
-   switch_on{t_switch},
-   switch_off{t_switch},
-   timer_start{t_start},
-   fast_click{t_off_force}
+Rest::Rest(Settings* p_set, Context* context)
+ : State{p_set, context},
+   switch_on{p_set->get_time_switch()},
+   switch_off{p_set->get_time_switch()},
+   timer_start{p_set->get_time_start()},
+   fast_click{p_set->get_time_off()}
 {}
 
 //конструктор копирования Rest
 Rest::Rest(State* other)
  : State{*other},
-   switch_on{t_switch}, //гарантированное включение 100 мс
-   switch_off{t_switch}, //гарантированное отключение 100 мс
-   timer_start{t_start}, //переход в ненормальный режим при длительном неотключении освещения
-   fast_click{t_off_force} //для принудительного включения вентилятора - перевод в ненормальный режим (паттерн: включено - отключено - включено)
+   switch_on{p_set->get_time_switch()}, //гарантированное включение 100 мс
+   switch_off{p_set->get_time_switch()}, //гарантированное отключение 100 мс
+   timer_start{p_set->get_time_start()}, //переход в ненормальный режим при длительном неотключении освещения
+   fast_click{p_set->get_time_off()} //для принудительного включения вентилятора - перевод в ненормальный режим (паттерн: включено - отключено - включено)
 {}
 
 //возвращаю характеристику состояния
@@ -100,11 +85,11 @@ void Rest::read(){
 //конструктор копирования On
 On::On(State* other)
  : State{*other}, 
-   switch_on{t_switch}, //гарантированное включение 100 мс
-   switch_off{t_switch}, //гарантированное отключение 100 мс
-   timer_stop{t_stop}, //переход в нормальный режим при длительном отключении освещения
-   fast_click_rest{t_off_force}, //паттерн отключено - включено - отключено. Принудительное отключение вентилятора при отключенном освещении 
-   fast_click_force_off{t_off_force} //паттерн включено - отключено - включено. Принудительное отключение вентилятора при включенном освещении
+   switch_on{p_set->get_time_switch()}, //гарантированное включение 100 мс
+   switch_off{p_set->get_time_switch()}, //гарантированное отключение 100 мс
+   timer_stop{p_set->get_time_stop()}, //переход в нормальный режим при длительном отключении освещения
+   fast_click_rest{p_set->get_time_off()}, //паттерн отключено - включено - отключено. Принудительное отключение вентилятора при отключенном освещении 
+   fast_click_force_off{p_set->get_time_off()} //паттерн включено - отключено - включено. Принудительное отключение вентилятора при включенном освещении
  {}
 
 //возвращаю характеристику состояния
@@ -140,7 +125,7 @@ void On::read(){
 //конструктор копирования Rest
 Off_forced::Off_forced(State* other)
  : State{*other},
-   switch_off{t_switch} //гарантированное отключение 100 мс
+   switch_off{p_set->get_time_switch()} //гарантированное отключение 100 мс
 {}
 
 //возвращаю характеристику состояния

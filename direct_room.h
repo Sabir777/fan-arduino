@@ -1,6 +1,5 @@
 #pragma once
 
-#include "global.h"
 #include "room.h"
 
 class Direct_rooms{
@@ -11,7 +10,9 @@ class Direct_rooms{
     }
     
   private:
-    Toilet toilet{in_toilet, time_switch, time_start_toilet, time_stop_toilet, time_off, out_toilet, &bathroom};
-    Bathroom bathroom{in_bathroom, time_switch, time_start_bathroom, time_stop_bathroom, time_off, out_bathroom, &toilet};
+    Toilet_settings set_toilet; //настройки для туалета
+    Bathroom_settings set_bathroom; //настройки для ванной
+    Toilet toilet{&set_toilet, &bathroom}; //туалет
+    Bathroom bathroom{&set_bathroom, &toilet}; //ванная
 };
 

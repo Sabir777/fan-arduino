@@ -2,8 +2,8 @@
 Программа для управления вентилятором в ванной и туалете
 
 Алгоритм работы вентиляционной системы:
-- Вентилятор в ванной включается сразу же после включения освещения в ванной
-- Вентилятор в туалете тоже работает если работает вентилятор ванной
+- Вентилятор в ванной включается через 2 минуты после включения освещения в ванной
+- Вентилятор в туалете тоже работает, если работает вентилятор ванной
 - Вентилятор ванной выключается по истечении 20 минут с момента отключения освещения
 - Вентилятор туалета должен отключиться одновременно с вентилятором ванной,
   если не активна программа вентиляции самого туалета
@@ -14,14 +14,15 @@
 
 #pragma once
 
-#include "global.h"
 #include "direct_room.h"
 
 void setup() {
-pinMode(in_toilet, INPUT_PULLUP); //вход подтянутый к плюсу
-pinMode(out_toilet, OUTPUT);
-pinMode(in_bathroom, INPUT_PULLUP); //вход подтянутый к плюсу
-pinMode(out_bathroom, OUTPUT);
+  Setting_toilet toilet;
+  Setting_bathroom bathroom;
+  pinMode(toilet.input, INPUT_PULLUP); //вход подтянутый к плюсу
+  pinMode(toilet.output, OUTPUT);
+  pinMode(bathroom.input, INPUT_PULLUP); //вход подтянутый к плюсу
+  pinMode(bathroom.output, OUTPUT);
 }
 
 void loop() {

@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include "timer.h"
 #include "switcher.h"
+#include "setting.h"
 
 class State;
 
@@ -22,27 +23,13 @@ class Context{
 class State{
   protected:
     Context* context_; //указатель на контекст
-
-  public:
-    const int input; //номер входа
-    const int t_switch; //время перехода в противоположное состояние (антидребезг)
-    const uint32_t t_start; //время запуска ненормального режима
-    const uint32_t t_stop; //время сброса ненормального режима
-    const uint32_t t_off_force; //время перевода в отключеное состояние при принудительном отключении
+    Settings* p_set; //настройки для конкретной комнаты
+    int input; //цифровой вход микроконтроллера
     
   public:
-    State(int input, //номер входа
-          int t_switch, //время перехода в противоположное состояние (антидребезг)
-          uint32_t t_start, //время запуска ненормального режима
-          uint32_t t_stop, //время сброса ненормального режима
-          uint32_t t_off_force, //время перевода в отключеное состояние при принудительном отключении
-          Context* context
-          );
-
+    State(Settings* p_set, Context* context);
     State(const State&) = default;
-
     virtual ~State(){}
-
     void set_context(Context* context);
     virtual void read() = 0;
     virtual bool is_normal() = 0;
@@ -58,15 +45,8 @@ class Rest: public State {
     Fast_click fast_click; //переключение выходного состояния при быстром повторении базового состояния: если базовое состояние "включено", то нужно отключить и быстро включить выключатель. Если базовое состояние "отключено" то нужно включить и быстро отключить выключатель.
 
   public:
-    Rest(int input, //номер входа
-         int t_switch, //время перехода в противоположное состояние (антидребезг)
-         uint32_t t_start, //время запуска ненормального режима
-         uint32_t t_stop, //время сброса ненормального режима
-         uint32_t t_off_force, //время перевода в отключеное состояние при принудительном отключении
-         Context* context = nullptr);
-
+    Rest(Settings* p_set, Context* context = nullptr);
     Rest(State*); //State* - повышающее преобразование - сюда будут передаваться указатели на производные классы через this
-
     void read() override;
     bool is_normal() override;
 };
