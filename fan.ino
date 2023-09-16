@@ -23,6 +23,7 @@ void setup() {
   pinMode(toilet.output, OUTPUT);
   pinMode(bathroom.input, INPUT_PULLUP); //вход подтянутый к плюсу
   pinMode(bathroom.output, OUTPUT);
+  pinMode(13, OUTPUT); //мигание светодиода
 }
 
 void loop() {
