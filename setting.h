@@ -16,7 +16,7 @@ struct Setting{
 struct Setting_toilet{
   int input = 5; //вход: освещение туалета
   int output = 6; //выход: вентилятор туалета
-  uint32_t time_stop = 600000; //туалет: время перехода в нормальный режим - 10 минут
+  uint32_t time_stop = 300000; //туалет: время перехода в нормальный режим - 5 минут
 };
 
 
@@ -30,10 +30,12 @@ struct Setting_bathroom{
 
 //Интерфейс для считывания настроек отдельно для каждой комнаты
 class Settings{
+  private:
+    static const Setting setting;
+
   protected:
-    Setting setting;
-    Setting_toilet set_toilet;
-    Setting_bathroom set_bathroom;
+    static const Setting_toilet set_toilet;
+    static const Setting_bathroom set_bathroom;
 
   public:
     int get_time_switch(){
