@@ -24,7 +24,7 @@ struct Setting_toilet{
 struct Setting_bathroom{
   int input = 11; //вход: освещение ванной
   int output = 12; //выход: вентилятор ванной
-  uint32_t time_stop = 1200000; //ванная: время перехода в нормальный режим - 20 минут 
+  uint32_t time_stop = 300000; //ванная: время перехода в нормальный режим - 5 минут
 };
 
 
